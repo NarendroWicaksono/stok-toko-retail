@@ -5,7 +5,9 @@
    ======================================== */
 
 /* Reset & Base */
-*, *::before, *::after {
+*,
+*::before,
+*::after {
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -16,7 +18,8 @@ body {
     font-size: 15px;
     line-height: 1.6;
     color: #111111;
-    background-color: #ffffff; /* Background Putih Solid */
+    background-color: #ffffff;
+    /* Background Putih Solid */
 }
 
 a {
@@ -24,6 +27,7 @@ a {
     text-decoration: none;
     font-weight: 600;
 }
+
 a:hover {
     text-decoration: underline;
 }
@@ -41,26 +45,32 @@ a:hover {
     border-bottom: 2px solid #222222;
     padding: 0;
 }
+
 .nav-container {
     display: flex;
     align-items: center;
     justify-content: space-between;
     height: 56px;
+    flex-wrap: wrap;
 }
+
 .nav-brand {
     font-size: 20px;
     font-weight: 800;
     color: #000000;
     letter-spacing: -0.5px;
 }
+
 .nav-brand:hover {
     text-decoration: none;
 }
+
 .nav-menu {
     list-style: none;
     display: flex;
     gap: 6px;
 }
+
 .nav-link {
     display: block;
     padding: 8px 16px;
@@ -69,13 +79,16 @@ a:hover {
     color: #222222;
     border-radius: 4px;
 }
+
 .nav-link:hover {
     background-color: #e0e0e0;
     text-decoration: none;
     color: #000000;
 }
+
 .nav-alert {
-    color: #d32f2f; /* Merah Solid Tegas */
+    color: #d32f2f;
+    /* Merah Solid Tegas */
     font-weight: 800;
 }
 
@@ -94,6 +107,7 @@ h1 {
     border-bottom: 2px solid #eeeeee;
     padding-bottom: 8px;
 }
+
 h2 {
     font-size: 18px;
     font-weight: 800;
@@ -101,8 +115,10 @@ h2 {
     margin-top: 32px;
     margin-bottom: 14px;
 }
+
 .subtitle {
-    color: #d32f2f; /* Merah Solid */
+    color: #d32f2f;
+    /* Merah Solid */
     font-weight: 700;
     margin-bottom: 18px;
     font-size: 15px;
@@ -115,18 +131,21 @@ h2 {
     gap: 16px;
     margin-bottom: 12px;
 }
+
 .card {
     background: #ffffff;
     border: 2px solid #cccccc;
     border-radius: 8px;
     padding: 18px;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
 }
+
 .card-stat {
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
+
 .card-label {
     font-size: 13px;
     color: #444444;
@@ -134,6 +153,7 @@ h2 {
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
+
 .card-value {
     font-size: 28px;
     font-weight: 900;
@@ -145,11 +165,14 @@ h2 {
     border: 2px solid #d32f2f;
     background-color: #fff0f0;
 }
+
 .card-warning .card-label {
     color: #c62828;
 }
+
 .card-warning .card-value {
-    color: #d32f2f; /* Merah Solid */
+    color: #d32f2f;
+    /* Merah Solid */
 }
 
 /* Tables */
@@ -157,6 +180,7 @@ h2 {
     overflow-x: auto;
     margin-bottom: 20px;
 }
+
 table {
     width: 100%;
     border-collapse: collapse;
@@ -165,10 +189,12 @@ table {
     border-radius: 6px;
     font-size: 14px;
 }
+
 thead {
     background-color: #222222;
     color: #ffffff;
 }
+
 th {
     text-align: left;
     padding: 12px 14px;
@@ -179,14 +205,17 @@ th {
     letter-spacing: 0.5px;
     border-bottom: 2px solid #000000;
 }
+
 td {
     padding: 12px 14px;
     border-bottom: 1px solid #cccccc;
     color: #111111;
 }
+
 tbody tr:last-child td {
     border-bottom: none;
 }
+
 tbody tr:hover {
     background-color: #f5f5f5;
 }
@@ -196,14 +225,18 @@ tbody tr:hover {
     background-color: #ffe6e6 !important;
     border-left: 6px solid #d32f2f;
 }
+
 .row-warning td {
     color: #900c3f;
     font-weight: 600;
 }
+
 .row-warning td strong {
-    color: #d32f2f; /* Tulisan angka stok merah solid */
+    color: #d32f2f;
+    /* Tulisan angka stok merah solid */
     font-size: 16px;
 }
+
 .row-warning:hover {
     background-color: #ffcccc !important;
 }
@@ -237,18 +270,24 @@ code {
     letter-spacing: 0.3px;
     text-transform: uppercase;
 }
+
 .badge-ok {
-    background-color: #1b5e20; /* Hijau Solid Tegas */
+    background-color: #1b5e20;
+    /* Hijau Solid Tegas */
     color: #ffffff;
 }
+
 .badge-caution {
-    background-color: #e65100; /* Oranye Solid Tegas */
+    background-color: #e65100;
+    /* Oranye Solid Tegas */
     color: #ffffff;
 }
+
 .badge-warning {
-    background-color: #d32f2f; /* Merah Solid Tegas */
+    background-color: #d32f2f;
+    /* Merah Solid Tegas */
     color: #ffffff;
-    box-shadow: 0 1px 3px rgba(211,47,47,0.4);
+    box-shadow: 0 1px 3px rgba(211, 47, 47, 0.4);
 }
 
 /* Buttons (Tegas & Kontras) */
@@ -258,7 +297,8 @@ code {
     font-size: 14px;
     font-weight: 700;
     color: #ffffff;
-    background-color: #1976d2; /* Biru Solid Tegas */
+    background-color: #1976d2;
+    /* Biru Solid Tegas */
     border: 2px solid #1565c0;
     border-radius: 6px;
     cursor: pointer;
@@ -266,27 +306,33 @@ code {
     line-height: 1.4;
     text-align: center;
 }
+
 .btn:hover {
     background-color: #1565c0;
     border-color: #0d47a1;
     color: #ffffff;
     text-decoration: none;
 }
+
 .btn-sm {
     padding: 5px 12px;
     font-size: 13px;
-    background-color: #d32f2f; /* Tombol aksi restok berwarna merah solid */
+    background-color: #d32f2f;
+    /* Tombol aksi restok berwarna merah solid */
     border-color: #c62828;
 }
+
 .btn-sm:hover {
     background-color: #b71c1c;
     border-color: #8e0000;
 }
+
 .btn-back {
     margin-bottom: 20px;
     background-color: #424242;
     border-color: #212121;
 }
+
 .btn-back:hover {
     background-color: #212121;
 }
@@ -304,11 +350,13 @@ code {
     border: 2px solid #dddddd;
     border-radius: 8px;
 }
+
 .toolbar-form {
     display: flex;
     gap: 10px;
     flex-wrap: wrap;
 }
+
 .toolbar-info {
     font-size: 14px;
     font-weight: 700;
@@ -326,13 +374,16 @@ code {
     color: #000000;
     outline: none;
 }
+
 .input:focus {
     border-color: #1976d2;
     box-shadow: 0 0 0 3px rgba(25, 118, 210, 0.2);
 }
+
 .input-search {
     min-width: 240px;
 }
+
 select.input {
     min-width: 170px;
 }
@@ -345,6 +396,7 @@ select.input {
     gap: 14px;
     margin-top: 24px;
 }
+
 .pagination-info {
     font-size: 14px;
     font-weight: 700;
@@ -358,16 +410,19 @@ select.input {
     gap: 20px;
     margin-top: 12px;
 }
+
 .detail-list {
     display: grid;
     grid-template-columns: 140px 1fr;
     gap: 12px;
     font-size: 14px;
 }
+
 .detail-list dt {
     color: #444444;
     font-weight: 700;
 }
+
 .detail-list dd {
     color: #000000;
     font-weight: 600;
@@ -381,25 +436,33 @@ select.input {
     margin-bottom: 16px;
     border: 3px solid #cccccc;
 }
+
 .stok-aman {
     background-color: #e8f5e9;
     border-color: #2e7d32;
 }
+
 .stok-aman .stok-angka {
     color: #1b5e20;
 }
+
 .stok-rendah {
     background-color: #ffe6e6;
-    border-color: #d32f2f; /* Merah Solid Tegas */
+    border-color: #d32f2f;
+    /* Merah Solid Tegas */
 }
+
 .stok-rendah .stok-angka {
-    color: #d32f2f; /* Merah Solid Tegas */
+    color: #d32f2f;
+    /* Merah Solid Tegas */
 }
+
 .stok-angka {
     display: block;
     font-size: 48px;
     font-weight: 900;
 }
+
 .stok-label {
     display: block;
     font-size: 14px;
@@ -407,6 +470,7 @@ select.input {
     color: #333333;
     margin-top: 4px;
 }
+
 .stok-min {
     font-size: 14px;
     color: #222222;
@@ -422,6 +486,7 @@ select.input {
     border: 2px solid #dddddd;
     border-radius: 6px;
 }
+
 .form-stok label {
     display: block;
     font-size: 14px;
@@ -429,10 +494,12 @@ select.input {
     color: #111111;
     margin-bottom: 8px;
 }
+
 .form-inline {
     display: flex;
     gap: 10px;
 }
+
 .form-inline .input {
     width: 120px;
     font-size: 16px;
@@ -448,19 +515,23 @@ select.input {
     margin-bottom: 16px;
     border: 2px solid transparent;
 }
+
 .alert-success {
     background-color: #e8f5e9;
     color: #1b5e20;
     border-color: #2e7d32;
 }
+
 .alert-error {
     background-color: #ffe6e6;
     color: #b71c1c;
     border-color: #d32f2f;
 }
+
 .alert-warning {
     background-color: #ffe6e6;
-    color: #d32f2f; /* Merah Solid Tegas */
+    color: #d32f2f;
+    /* Merah Solid Tegas */
     border: 2px solid #d32f2f;
 }
 
@@ -476,28 +547,68 @@ select.input {
     background-color: #ffffff;
 }
 
-/* Responsive */
+/* ========================================
+   Responsive
+   ======================================== */
 @media (max-width: 768px) {
     .detail-grid {
         grid-template-columns: 1fr;
     }
+
     .card-grid {
         grid-template-columns: repeat(2, 1fr);
     }
+
     .toolbar {
         flex-direction: column;
         align-items: flex-start;
     }
+
+    .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+        height: auto;
+        padding: 10px 0;
+    }
+
+    .nav-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 4px;
+    }
+
+    .main-content {
+        padding: 0 10px 32px;
+    }
+
+    table {
+        font-size: 13px;
+    }
+
+    h1 {
+        font-size: 1.4rem;
+    }
+
+    h2 {
+        font-size: 1.1rem;
+    }
 }
+
 @media (max-width: 480px) {
     .card-grid {
         grid-template-columns: 1fr;
     }
-    .nav-menu {
-        gap: 0;
-    }
+
     .nav-link {
+        display: block;
         padding: 6px 8px;
         font-size: 13px;
+    }
+
+    table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
     }
 }
