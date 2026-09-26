@@ -16,7 +16,7 @@
     </div>
     <div class="card card-stat">
         <span class="card-label">Total Nilai Stok</span>
-        <span class="card-value">Rp <?= number_format($data['nilai_stok'], 0, ',', '.'); ?></span>
+        <span class="card-value">Rp <?= number_format((float)($data['nilai_stok'] ?? 0), 0, ',', '.'); ?></span>
     </div>
 </div>
 

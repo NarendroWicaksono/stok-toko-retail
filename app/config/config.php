@@ -3,7 +3,7 @@
 if (isset($_SERVER['HTTP_HOST'])) {
     $protocol = (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on') ? "https" : "http";
     $scriptDir = dirname($_SERVER['SCRIPT_NAME']);
-    $scriptDir = ($scriptDir === '/' || $scriptDir === '\\') ? '' : $scriptDir;
+    $scriptDir = ($scriptDir === '/' || $scriptDir === '\\' || $scriptDir === '/api' || $scriptDir === '\\api') ? '' : $scriptDir;
     define('BASEURL', $protocol . "://" . $_SERVER['HTTP_HOST'] . $scriptDir);
 } else {
     define('BASEURL', 'http://localhost/permweb/public');
