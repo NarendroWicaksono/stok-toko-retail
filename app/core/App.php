@@ -51,9 +51,14 @@ class App {
         }
 
         if (!empty($raw)) {
+            $raw = preg_replace('#^api/index\.php/?#i', '', $raw);
+            $raw = preg_replace('#^index\.php/?#i', '', $raw);
+            $raw = preg_replace('#^api/?#i', '', $raw);
+            
             $url = rtrim($raw, '/');
             $url = filter_var($url, FILTER_SANITIZE_URL);
             $url = explode('/', $url);
+            $url = array_values(array_filter($url, fn($segment) => $segment !== ''));
             return $url;
         }
 

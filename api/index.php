@@ -13,5 +13,14 @@ if (preg_match('/\.css$/i', $uri)) {
     }
 }
 
+// Ensure $_GET['url'] is populated on Vercel
+if (empty($_GET['url'])) {
+    $rawUri = $_SERVER['HTTP_X_FORWARDED_URI'] ?? ($_SERVER['REQUEST_URI'] ?? '');
+    $path = parse_url($rawUri, PHP_URL_PATH);
+    if ($path && $path !== '/' && $path !== '/api/index.php' && $path !== '/api') {
+        $_GET['url'] = ltrim($path, '/');
+    }
+}
+
 // Entry point for Vercel Serverless PHP Function
 require_once __DIR__ . '/../public/index.php';
