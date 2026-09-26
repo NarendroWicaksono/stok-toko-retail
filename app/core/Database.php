@@ -19,6 +19,11 @@ class Database {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
+        // SSL option for Cloud MySQL providers like Aiven
+        if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        }
+
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
@@ -31,16 +36,7 @@ class Database {
             echo '<p>Aplikasi web berhasil di-deploy ke Vercel, tetapi membutuhkan koneksi ke database MySQL online agar data dapat ditampilkan di cloud.</p>';
             echo '<h3>Langkah Penyelesaian:</h3>';
             echo '<ol>';
-            echo '<li>Buat database MySQL gratis di <strong>Aiven.io</strong>, <strong>Railway.app</strong>, atau <strong>Render.com</strong>.</li>';
-            echo '<li>Impor skema SQL dari file <code>database/schema.sql</code> ke database cloud tersebut.</li>';
-            echo '<li>Buka dashboard Vercel -> Project Settings -> <strong>Environment Variables</strong>, lalu tambahkan:';
-            echo '<ul>';
-            echo '<li><code>DB_HOST</code> = (host database cloud Anda)</li>';
-            echo '<li><code>DB_USER</code> = (username database)</li>';
-            echo '<li><code>DB_PASS</code> = (password database)</li>';
-            echo '<li><code>DB_NAME</code> = (nama database)</li>';
-            echo '<li><code>DB_PORT</code> = (port, default: 3306)</li>';
-            echo '</ul></li>';
+            echo '<li>Buka dashboard Vercel -> Project Settings -> <strong>Environment Variables</strong>, lalu tambahkan variabel Aiven Anda.</li>';
             echo '</ol>';
             echo '<p><small>Detail Error MySQL: ' . htmlspecialchars($e->getMessage()) . '</small></p></div></body></html>';
             exit;

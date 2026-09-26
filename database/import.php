@@ -8,13 +8,24 @@
 require_once __DIR__ . '/../app/config/config.php';
 
 try {
-    $pdo = new PDO(
-        'mysql:host=' . DB_HOST . ';dbname=' . DB_NAME,
-        DB_USER,
-        DB_PASS,
-        [PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION]
-    );
+    $dsn = 'mysql:host=' . DB_HOST . ';port=' . DB_PORT . ';dbname=' . DB_NAME . ';charset=utf8mb4';
+    $options = [
+        PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
+    ];
+    if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+        $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+    }
+
+    $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
     echo "Koneksi database berhasil.\n";
+
+    // Auto create table if not exists
+    $schemaFile = __DIR__ . '/schema.sql';
+    if (file_exists($schemaFile)) {
+        $sql = file_get_contents($schemaFile);
+        $pdo->exec($sql);
+        echo "Skema tabel berhasil diverifikasi.\n";
+    }
 } catch (PDOException $e) {
     die("Gagal koneksi: " . $e->getMessage() . "\n");
 }
@@ -97,4 +108,4 @@ foreach ($products as $p) {
     $count++;
 }
 
-echo "Berhasil mengimpor $count produk dengan harga Rupiah ke database.\n";
+echo "Berhasil mengimpor $count produk dengan harga Rupiah ke database cloud.\n";
