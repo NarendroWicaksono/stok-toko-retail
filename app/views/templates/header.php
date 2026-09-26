@@ -5,7 +5,14 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sistem Pemantau Stok Toko Retail">
     <title><?= $data['title'] ?? 'Stok Toko Retail'; ?></title>
-    <link rel="stylesheet" href="<?= BASEURL; ?>/css/style.css">
+    <style>
+    <?php 
+    $cssPath = __DIR__ . '/../../../public/css/style.css';
+    if (file_exists($cssPath)) {
+        include $cssPath;
+    }
+    ?>
+    </style>
 </head>
 <body>
     <nav class="navbar">
