@@ -1,7 +1,3 @@
--- Database: stok_toko
-CREATE DATABASE IF NOT EXISTS `stok_toko` DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci;
-USE `stok_toko`;
-
 -- Tabel produk (data unik dari CSV)
 CREATE TABLE IF NOT EXISTS `produk` (
     `id` INT AUTO_INCREMENT PRIMARY KEY,
