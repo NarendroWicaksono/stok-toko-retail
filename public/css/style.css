@@ -337,56 +337,6 @@ code {
     background-color: #212121;
 }
 
-.btn-success {
-    background-color: #2e7d32;
-    border-color: #1b5e20;
-    color: #ffffff;
-}
-
-.btn-success:hover {
-    background-color: #1b5e20;
-    border-color: #0d3813;
-    color: #ffffff;
-}
-
-.btn-secondary {
-    background-color: #424242;
-    border-color: #212121;
-    color: #ffffff;
-}
-
-.btn-secondary:hover {
-    background-color: #212121;
-    border-color: #000000;
-    color: #ffffff;
-}
-
-.btn-quick {
-    display: inline-block;
-    padding: 6px 14px;
-    font-size: 13px;
-    font-weight: 800;
-    color: #1b5e20;
-    background-color: #ffffff;
-    border: 2px solid #2e7d32;
-    border-radius: 6px;
-    cursor: pointer;
-    transition: all 0.15s ease;
-}
-
-.btn-quick:hover {
-    background-color: #2e7d32;
-    color: #ffffff;
-}
-
-.box-tambah-stok {
-    margin-top: 18px;
-    background: #f1f8e9;
-    padding: 16px;
-    border: 2px solid #a5d6a7;
-    border-radius: 8px;
-}
-
 /* Toolbar & Form Search */
 .toolbar {
     display: flex;
@@ -521,93 +471,6 @@ select.input {
     margin-top: 4px;
 }
 
-/* Counter Stepper */
-.stok-counter-row {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 20px;
-}
-
-.counter-form {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-}
-
-.btn-counter {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 62px;
-    height: 62px;
-    border-radius: 50%;
-    font-size: 18px;
-    font-weight: 900;
-    border: 3px solid;
-    cursor: pointer;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-    transition: transform 0.15s ease, background-color 0.15s ease;
-}
-
-.btn-counter:active {
-    transform: scale(0.92);
-}
-
-.btn-counter-minus {
-    background-color: #ffffff;
-    color: #c62828;
-    border-color: #c62828;
-}
-
-.btn-counter-minus:hover {
-    background-color: #c62828;
-    color: #ffffff;
-}
-
-.btn-counter-plus {
-    background-color: #2e7d32;
-    color: #ffffff;
-    border-color: #1b5e20;
-}
-
-.btn-counter-plus:hover {
-    background-color: #1b5e20;
-    color: #ffffff;
-}
-
-.quick-add-grid {
-    display: flex;
-    gap: 8px;
-    flex-wrap: wrap;
-    margin-bottom: 14px;
-}
-
-.btn-quick-action {
-    display: inline-block;
-    padding: 8px 14px;
-    font-size: 14px;
-    font-weight: 800;
-    color: #1b5e20;
-    background-color: #ffffff;
-    border: 2px solid #2e7d32;
-    border-radius: 6px;
-    cursor: pointer;
-    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
-    transition: all 0.15s ease;
-}
-
-.btn-quick-action:hover {
-    background-color: #2e7d32;
-    color: #ffffff;
-    transform: translateY(-2px);
-    box-shadow: 0 4px 8px rgba(46,125,50,0.3);
-}
-
-.btn-quick-action:active {
-    transform: translateY(0);
-}
-
 .stok-min {
     font-size: 14px;
     color: #222222;
@@ -615,32 +478,37 @@ select.input {
     font-weight: 600;
 }
 
-/* Form Restok */
+/* Form Restok Manual (Solid & Tegas) */
 .form-stok {
     margin-top: 20px;
-    background: #f8f9fa;
-    padding: 16px;
-    border: 2px solid #dddddd;
+    background: #f5f5f5;
+    padding: 18px;
+    border: 2px solid #333333;
     border-radius: 6px;
 }
 
 .form-stok label {
     display: block;
-    font-size: 14px;
-    font-weight: 700;
+    font-size: 15px;
+    font-weight: 800;
     color: #111111;
-    margin-bottom: 8px;
+    margin-bottom: 10px;
 }
 
 .form-inline {
     display: flex;
-    gap: 10px;
+    gap: 12px;
+    align-items: center;
 }
 
 .form-inline .input {
-    width: 120px;
-    font-size: 16px;
+    width: 140px;
+    font-size: 18px;
+    font-weight: 800;
     text-align: center;
+    border: 2px solid #222222;
+    background-color: #ffffff;
+    color: #000000;
 }
 
 /* Alerts (Kontras Tinggi & Merah Solid) */
