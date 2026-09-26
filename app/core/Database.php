@@ -19,16 +19,20 @@ class Database {
             PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
         ];
 
-        // SSL option for Cloud MySQL providers like Aiven
-        if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-            $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        // SSL option for Cloud MySQL providers (compatible with PHP 7.x, 8.0-8.4, and PHP 8.5+)
+        if (defined('Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')) {
+            $options[Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = false;
+        } elseif (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+            $options[@PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
         }
 
         try {
             $this->dbh = new PDO($dsn, $this->user, $this->pass, $options);
         } catch (PDOException $e) {
             // Render user-friendly error page if Cloud DB is not configured yet
-            http_response_code(500);
+            if (!headers_sent()) {
+                http_response_code(500);
+            }
             echo '<!DOCTYPE html><html lang="id"><head><meta charset="UTF-8"><title>Koneksi Database | Stok Toko Retail</title>';
             echo '<style>body{font-family:sans-serif;background:#fff;color:#111;padding:40px;line-height:1.6;max-width:800px;margin:0 auto;}';
             echo '.box{border:2px solid #d32f2f;background:#ffe6e6;padding:24px;border-radius:8px;}h1{color:#d32f2f;margin-top:0;}code{background:#fff;padding:2px 6px;border:1px solid #ccc;border-radius:4px;}</style></head><body>';

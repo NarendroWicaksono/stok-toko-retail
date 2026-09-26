@@ -12,8 +12,10 @@ try {
     $options = [
         PDO::ATTR_ERRMODE => PDO::ERRMODE_EXCEPTION
     ];
-    if (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
-        $options[PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
+    if (defined('Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT')) {
+        $options[Pdo\Mysql::ATTR_SSL_VERIFY_SERVER_CERT] = false;
+    } elseif (defined('PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT')) {
+        $options[@PDO::MYSQL_ATTR_SSL_VERIFY_SERVER_CERT] = false;
     }
 
     $pdo = new PDO($dsn, DB_USER, DB_PASS, $options);
