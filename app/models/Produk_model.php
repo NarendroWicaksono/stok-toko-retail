@@ -83,6 +83,14 @@ class Produk_model {
         return $this->db->rowCount();
     }
 
+    public function tambahStok($id, $jumlah) {
+        $this->db->query("UPDATE {$this->table} SET stok = GREATEST(0, stok + :jumlah) WHERE id = :id");
+        $this->db->bind(':jumlah', (int)$jumlah);
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
     public function getStokByCategory() {
         $this->db->query("SELECT category, SUM(stok) as total_stok, COUNT(*) as total_produk, SUM(CASE WHEN stok <= stok_minimum THEN 1 ELSE 0 END) as stok_rendah FROM {$this->table} GROUP BY category ORDER BY category");
         return $this->db->resultSet();

@@ -337,6 +337,56 @@ code {
     background-color: #212121;
 }
 
+.btn-success {
+    background-color: #2e7d32;
+    border-color: #1b5e20;
+    color: #ffffff;
+}
+
+.btn-success:hover {
+    background-color: #1b5e20;
+    border-color: #0d3813;
+    color: #ffffff;
+}
+
+.btn-secondary {
+    background-color: #424242;
+    border-color: #212121;
+    color: #ffffff;
+}
+
+.btn-secondary:hover {
+    background-color: #212121;
+    border-color: #000000;
+    color: #ffffff;
+}
+
+.btn-quick {
+    display: inline-block;
+    padding: 6px 14px;
+    font-size: 13px;
+    font-weight: 800;
+    color: #1b5e20;
+    background-color: #ffffff;
+    border: 2px solid #2e7d32;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.15s ease;
+}
+
+.btn-quick:hover {
+    background-color: #2e7d32;
+    color: #ffffff;
+}
+
+.box-tambah-stok {
+    margin-top: 18px;
+    background: #f1f8e9;
+    padding: 16px;
+    border: 2px solid #a5d6a7;
+    border-radius: 8px;
+}
+
 /* Toolbar & Form Search */
 .toolbar {
     display: flex;

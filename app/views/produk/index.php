@@ -31,18 +31,19 @@
                 <th>Stok</th>
                 <th>Min</th>
                 <th>Status Stok</th>
+                <th>Tindakan</th>
             </tr>
         </thead>
         <tbody>
             <?php if (empty($data['produk'])) : ?>
-            <tr><td colspan="8" class="text-center">Tidak ada produk yang sesuai dengan pencarian.</td></tr>
+            <tr><td colspan="9" class="text-center">Tidak ada produk yang sesuai dengan pencarian.</td></tr>
             <?php else : ?>
             <?php foreach ($data['produk'] as $p) : ?>
             <tr class="<?= ($p['stok'] <= $p['stok_minimum']) ? 'row-warning' : ''; ?>">
                 <td><code><?= htmlspecialchars($p['product_id']); ?></code></td>
                 <td>
                     <a href="<?= BASEURL; ?>/Produk/detail/<?= $p['id']; ?>">
-                        <?= htmlspecialchars(mb_substr($p['product_name'], 0, 55)); ?>
+                        <?= htmlspecialchars(mb_substr($p['product_name'], 0, 50)); ?>
                     </a>
                 </td>
                 <td><?= htmlspecialchars($p['category']); ?></td>
@@ -58,6 +59,11 @@
                     <?php else : ?>
                         <span class="badge badge-ok">Aman</span>
                     <?php endif; ?>
+                </td>
+                <td>
+                    <a href="<?= BASEURL; ?>/Produk/detail/<?= $p['id']; ?>" class="btn btn-sm" style="white-space: nowrap;">
+                        Lihat Detail
+                    </a>
                 </td>
             </tr>
             <?php endforeach; ?>

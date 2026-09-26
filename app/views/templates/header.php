@@ -12,6 +12,64 @@
         include $cssPath;
     }
     ?>
+
+    /* === Responsive: navbar & container === */
+    .container {
+      width: 100%;
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 16px;
+      box-sizing: border-box;
+    }
+
+    .nav-container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+    }
+
+    .nav-menu {
+      display: flex;
+      list-style: none;
+      gap: 16px;
+      margin: 0;
+      padding: 0;
+    }
+
+    @media (max-width: 768px) {
+      .nav-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 8px;
+      }
+      .nav-menu {
+        flex-direction: column;
+        width: 100%;
+        gap: 4px;
+      }
+      .nav-link {
+        display: block;
+        padding: 8px 0;
+      }
+      .main-content {
+        padding: 0 10px;
+      }
+      table {
+        font-size: 13px;
+      }
+      h1 { font-size: 1.4rem; }
+      h2 { font-size: 1.1rem; }
+    }
+
+    /* Tabel jadi scrollable horizontal di HP */
+    @media (max-width: 480px) {
+      table {
+        display: block;
+        overflow-x: auto;
+        white-space: nowrap;
+      }
+    }
     </style>
 </head>
 <body>
