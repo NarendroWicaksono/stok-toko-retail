@@ -1,6 +1,6 @@
 <?php
 /**
- * Script untuk import data dari train.csv ke database MySQL
+ * Script untuk import data dari train.csv ke database MySQL (Aiven Cloud / Local)
  * Mengonversi harga ke Rupiah (kurs 1 USD = Rp 15.000)
  * Jalankan: C:\xampp\php\php.exe database/import.php
  */
@@ -77,7 +77,9 @@ fclose($handle);
 
 echo "Ditemukan " . count($products) . " produk unik.\n";
 
-// Insert ke database
+// Rapid batch insert using PDO transaction
+$pdo->beginTransaction();
+
 $stmt = $pdo->prepare("
     INSERT INTO produk (product_id, product_name, category, sub_category, harga, stok, stok_minimum)
     VALUES (:product_id, :product_name, :category, :sub_category, :harga, :stok, :stok_minimum)
@@ -107,5 +109,7 @@ foreach ($products as $p) {
     ]);
     $count++;
 }
+
+$pdo->commit();
 
 echo "Berhasil mengimpor $count produk dengan harga Rupiah ke database cloud.\n";
