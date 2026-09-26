@@ -91,6 +91,10 @@ class Produk_model {
         return $this->db->rowCount();
     }
 
+    public function kurangStok($id, $jumlah) {
+        return $this->tambahStok($id, -abs((int)$jumlah));
+    }
+
     public function getStokByCategory() {
         $this->db->query("SELECT category, SUM(stok) as total_stok, COUNT(*) as total_produk, SUM(CASE WHEN stok <= stok_minimum THEN 1 ELSE 0 END) as stok_rendah FROM {$this->table} GROUP BY category ORDER BY category");
         return $this->db->resultSet();

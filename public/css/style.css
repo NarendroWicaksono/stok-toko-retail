@@ -521,6 +521,93 @@ select.input {
     margin-top: 4px;
 }
 
+/* Counter Stepper */
+.stok-counter-row {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+}
+
+.counter-form {
+    margin: 0;
+    padding: 0;
+    display: inline-block;
+}
+
+.btn-counter {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 62px;
+    height: 62px;
+    border-radius: 50%;
+    font-size: 18px;
+    font-weight: 900;
+    border: 3px solid;
+    cursor: pointer;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+    transition: transform 0.15s ease, background-color 0.15s ease;
+}
+
+.btn-counter:active {
+    transform: scale(0.92);
+}
+
+.btn-counter-minus {
+    background-color: #ffffff;
+    color: #c62828;
+    border-color: #c62828;
+}
+
+.btn-counter-minus:hover {
+    background-color: #c62828;
+    color: #ffffff;
+}
+
+.btn-counter-plus {
+    background-color: #2e7d32;
+    color: #ffffff;
+    border-color: #1b5e20;
+}
+
+.btn-counter-plus:hover {
+    background-color: #1b5e20;
+    color: #ffffff;
+}
+
+.quick-add-grid {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 14px;
+}
+
+.btn-quick-action {
+    display: inline-block;
+    padding: 8px 14px;
+    font-size: 14px;
+    font-weight: 800;
+    color: #1b5e20;
+    background-color: #ffffff;
+    border: 2px solid #2e7d32;
+    border-radius: 6px;
+    cursor: pointer;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+    transition: all 0.15s ease;
+}
+
+.btn-quick-action:hover {
+    background-color: #2e7d32;
+    color: #ffffff;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(46,125,50,0.3);
+}
+
+.btn-quick-action:active {
+    transform: translateY(0);
+}
+
 .stok-min {
     font-size: 14px;
     color: #222222;

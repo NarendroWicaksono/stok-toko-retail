@@ -58,34 +58,58 @@ class Produk extends Controller {
             exit;
         }
 
-        // Jika request berupa tambah stok
-        if (isset($_POST['aksi']) && $_POST['aksi'] === 'tambah') {
-            $jumlah = isset($_POST['jumlah_tambah']) ? (int)$_POST['jumlah_tambah'] : 0;
-            if ($jumlah > 0) {
-                $produkModel->tambahStok($id, $jumlah);
-                $stokAkhir = $produk['stok'] + $jumlah;
-                $_SESSION['flash'] = [
-                    'type' => 'success', 
-                    'message' => "Berhasil menambahkan <strong>+{$jumlah} unit</strong> stok! Total stok sekarang: <strong>{$stokAkhir} unit</strong>."
-                ];
+        $isAjax = (!empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest') 
+                  || (isset($_POST['is_ajax']) && $_POST['is_ajax'] == '1')
+                  || (isset($_SERVER['HTTP_ACCEPT']) && strpos($_SERVER['HTTP_ACCEPT'], 'application/json') !== false);
+
+        $aksi = $_POST['aksi'] ?? 'set';
+        $stokSekarang = (int)$produk['stok'];
+
+        if ($aksi === 'tambah') {
+            $jumlah = isset($_POST['jumlah_tambah']) ? (int)$_POST['jumlah_tambah'] : (isset($_POST['jumlah']) ? (int)$_POST['jumlah'] : 1);
+            if ($jumlah <= 0) $jumlah = 1;
+            
+            $produkModel->tambahStok($id, $jumlah);
+            $stokAkhir = $stokSekarang + $jumlah;
+            $msg = "Berhasil menambahkan <strong>+{$jumlah} unit</strong> stok! Total stok sekarang: <strong>{$stokAkhir} unit</strong>.";
+            
+            $_SESSION['flash'] = ['type' => 'success', 'message' => $msg];
+        } elseif ($aksi === 'kurang') {
+            $jumlah = isset($_POST['jumlah_kurang']) ? (int)$_POST['jumlah_kurang'] : (isset($_POST['jumlah']) ? (int)$_POST['jumlah'] : 1);
+            if ($jumlah <= 0) $jumlah = 1;
+
+            $produkModel->kurangStok($id, $jumlah);
+            $stokAkhir = max(0, $stokSekarang - $jumlah);
+            $msg = "Berhasil mengurangi <strong>-{$jumlah} unit</strong> stok! Total stok sekarang: <strong>{$stokAkhir} unit</strong>.";
+            
+            $_SESSION['flash'] = ['type' => 'success', 'message' => $msg];
+        } else {
+            // Atur total stok manual
+            $stokBaru = isset($_POST['stok']) ? max(0, (int)$_POST['stok']) : 0;
+            $stokAkhir = $stokBaru;
+
+            if ($stokBaru === $stokSekarang) {
+                $msg = 'Jumlah stok disimpan (tidak ada perubahan angka).';
+                $_SESSION['flash'] = ['type' => 'success', 'message' => $msg];
             } else {
-                $_SESSION['flash'] = ['type' => 'error', 'message' => 'Jumlah penambahan stok harus lebih dari 0.'];
+                $produkModel->updateStok($id, $stokBaru);
+                $msg = "Stok berhasil diperbarui menjadi <strong>{$stokBaru} unit</strong>.";
+                $_SESSION['flash'] = ['type' => 'success', 'message' => $msg];
             }
-            header('Location: ' . BASEURL . '/Produk/detail/' . $id);
-            exit;
         }
 
-        // Atur total stok baru
-        $stokBaru = isset($_POST['stok']) ? max(0, (int)$_POST['stok']) : 0;
-
-        if ($stokBaru === (int)$produk['stok']) {
-            $_SESSION['flash'] = ['type' => 'success', 'message' => 'Jumlah stok disimpan (tidak ada perubahan angka).'];
-        } else {
-            $produkModel->updateStok($id, $stokBaru);
-            $_SESSION['flash'] = [
-                'type' => 'success', 
-                'message' => "Stok berhasil diperbarui menjadi <strong>{$stokBaru} unit</strong>."
-            ];
+        if ($isAjax) {
+            header('Content-Type: application/json; charset=utf-8');
+            echo json_encode([
+                'success' => true,
+                'stok' => $stokAkhir,
+                'stok_formatted' => number_format($stokAkhir, 0, ',', '.'),
+                'stok_minimum' => (int)$produk['stok_minimum'],
+                'is_low' => ($stokAkhir <= (int)$produk['stok_minimum']),
+                'total_nilai' => 'Rp ' . number_format($produk['harga'] * $stokAkhir, 0, ',', '.'),
+                'message' => $msg
+            ]);
+            exit;
         }
 
         header('Location: ' . BASEURL . '/Produk/detail/' . $id);
@@ -93,34 +117,8 @@ class Produk extends Controller {
     }
 
     public function tambahStok($id = null) {
-        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !$id) {
-            header('Location: ' . BASEURL . '/Produk');
-            exit;
-        }
-
-        $produkModel = $this->model('Produk_model');
-        $produk = $produkModel->getProdukById($id);
-
-        if (!$produk) {
-            header('Location: ' . BASEURL . '/Produk');
-            exit;
-        }
-
-        $jumlah = isset($_POST['jumlah']) ? (int)$_POST['jumlah'] : (isset($_POST['jumlah_tambah']) ? (int)$_POST['jumlah_tambah'] : 0);
-
-        if ($jumlah > 0) {
-            $produkModel->tambahStok($id, $jumlah);
-            $stokAkhir = $produk['stok'] + $jumlah;
-            $_SESSION['flash'] = [
-                'type' => 'success', 
-                'message' => "Berhasil menambahkan <strong>+{$jumlah} unit</strong> stok! Total stok sekarang: <strong>{$stokAkhir} unit</strong>."
-            ];
-        } else {
-            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Jumlah penambahan stok harus lebih dari 0.'];
-        }
-
-        header('Location: ' . BASEURL . '/Produk/detail/' . $id);
-        exit;
+        $_POST['aksi'] = 'tambah';
+        return $this->updateStok($id);
     }
 
     public function stokRendah() {
