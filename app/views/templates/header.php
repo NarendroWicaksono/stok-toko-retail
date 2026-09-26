@@ -5,7 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Sistem Pemantau Stok Toko Retail">
     <title><?= $data['title'] ?? 'Stok Toko Retail'; ?></title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
+    *, *::before, *::after, body, input, button, select, textarea, table, th, td, h1, h2, h3, h4, h5, h6 {
+      font-family: "Segoe UI Variable Display", "Segoe UI Variable Text", "Segoe UI Variable", "Segoe UI", "Inter", -apple-system, BlinkMacSystemFont, Roboto, "Helvetica Neue", Arial, sans-serif;
+    }
     <?php 
     $cssPath = __DIR__ . '/../../../public/css/style.css';
     if (file_exists($cssPath)) {
