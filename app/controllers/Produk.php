@@ -131,4 +131,149 @@ class Produk extends Controller {
         $this->view('produk/stok_rendah', $data);
         $this->view('templates/footer', $data);
     }
+
+    public function tambah() {
+        $produkModel = $this->model('Produk_model');
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productId = trim($_POST['product_id'] ?? '');
+            $productName = trim($_POST['product_name'] ?? '');
+            $category = trim($_POST['category'] ?? '');
+            $subCategory = trim($_POST['sub_category'] ?? '');
+            $harga = isset($_POST['harga']) ? max(0, (float)$_POST['harga']) : 0;
+            $stok = isset($_POST['stok']) ? max(0, (int)$_POST['stok']) : 0;
+            $stokMinimum = isset($_POST['stok_minimum']) ? max(0, (int)$_POST['stok_minimum']) : 5;
+            $kategoriId = !empty($_POST['kategori_id']) ? (int)$_POST['kategori_id'] : null;
+            $supplierId = !empty($_POST['supplier_id']) ? (int)$_POST['supplier_id'] : null;
+
+            if (empty($productId) || empty($productName) || empty($category)) {
+                $_SESSION['flash'] = ['type' => 'error', 'message' => 'Kode produk, nama produk, dan kategori wajib diisi.'];
+                header('Location: ' . BASEURL . '/Produk/tambah');
+                exit;
+            }
+
+            try {
+                $produkModel->tambahProduk([
+                    'product_id' => $productId,
+                    'product_name' => $productName,
+                    'category' => $category,
+                    'sub_category' => $subCategory,
+                    'harga' => $harga,
+                    'stok' => $stok,
+                    'stok_minimum' => $stokMinimum,
+                    'kategori_id' => $kategoriId,
+                    'supplier_id' => $supplierId
+                ]);
+                $_SESSION['flash'] = ['type' => 'success', 'message' => 'Produk <strong>' . htmlspecialchars($productName) . '</strong> berhasil ditambahkan.'];
+                header('Location: ' . BASEURL . '/Produk');
+                exit;
+            } catch (PDOException $e) {
+                if ($e->getCode() == 23000) {
+                    $_SESSION['flash'] = ['type' => 'error', 'message' => 'Produk dengan kode tersebut sudah ada.'];
+                } else {
+                    $_SESSION['flash'] = ['type' => 'error', 'message' => 'Gagal menambahkan produk: ' . htmlspecialchars($e->getMessage())];
+                }
+                header('Location: ' . BASEURL . '/Produk/tambah');
+                exit;
+            }
+        }
+
+        // Load dropdown data for kategori and supplier
+        $kategoriModel = $this->model('Kategori_model');
+        $supplierModel = $this->model('Supplier_model');
+
+        $data['title'] = 'Tambah Produk | Stok Toko Retail';
+        $data['kategori_list'] = $kategoriModel->getKategoriForDropdown();
+        $data['supplier_list'] = $supplierModel->getSupplierForDropdown();
+
+        $this->view('templates/header', $data);
+        $this->view('produk/tambah', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function edit($id = null) {
+        if (!$id) {
+            header('Location: ' . BASEURL . '/Produk');
+            exit;
+        }
+
+        $produkModel = $this->model('Produk_model');
+        $produk = $produkModel->getProdukById($id);
+
+        if (!$produk) {
+            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Produk tidak ditemukan.'];
+            header('Location: ' . BASEURL . '/Produk');
+            exit;
+        }
+
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            $productName = trim($_POST['product_name'] ?? '');
+            $category = trim($_POST['category'] ?? '');
+            $subCategory = trim($_POST['sub_category'] ?? '');
+            $harga = isset($_POST['harga']) ? max(0, (float)$_POST['harga']) : 0;
+            $stokMinimum = isset($_POST['stok_minimum']) ? max(0, (int)$_POST['stok_minimum']) : 5;
+            $kategoriId = !empty($_POST['kategori_id']) ? (int)$_POST['kategori_id'] : null;
+            $supplierId = !empty($_POST['supplier_id']) ? (int)$_POST['supplier_id'] : null;
+
+            if (empty($productName) || empty($category)) {
+                $_SESSION['flash'] = ['type' => 'error', 'message' => 'Nama produk dan kategori wajib diisi.'];
+                header('Location: ' . BASEURL . '/Produk/edit/' . $id);
+                exit;
+            }
+
+            try {
+                $produkModel->updateProduk([
+                    'id' => $id,
+                    'product_name' => $productName,
+                    'category' => $category,
+                    'sub_category' => $subCategory,
+                    'harga' => $harga,
+                    'stok_minimum' => $stokMinimum,
+                    'kategori_id' => $kategoriId,
+                    'supplier_id' => $supplierId
+                ]);
+                $_SESSION['flash'] = ['type' => 'success', 'message' => 'Produk <strong>' . htmlspecialchars($productName) . '</strong> berhasil diperbarui.'];
+                header('Location: ' . BASEURL . '/Produk/detail/' . $id);
+                exit;
+            } catch (PDOException $e) {
+                $_SESSION['flash'] = ['type' => 'error', 'message' => 'Gagal memperbarui produk: ' . htmlspecialchars($e->getMessage())];
+                header('Location: ' . BASEURL . '/Produk/edit/' . $id);
+                exit;
+            }
+        }
+
+        // Load dropdown data
+        $kategoriModel = $this->model('Kategori_model');
+        $supplierModel = $this->model('Supplier_model');
+
+        $data['title'] = 'Edit Produk | Stok Toko Retail';
+        $data['produk'] = $produk;
+        $data['kategori_list'] = $kategoriModel->getKategoriForDropdown();
+        $data['supplier_list'] = $supplierModel->getSupplierForDropdown();
+
+        $this->view('templates/header', $data);
+        $this->view('produk/edit', $data);
+        $this->view('templates/footer', $data);
+    }
+
+    public function hapus($id = null) {
+        if ($_SERVER['REQUEST_METHOD'] !== 'POST' || !$id) {
+            header('Location: ' . BASEURL . '/Produk');
+            exit;
+        }
+
+        $produkModel = $this->model('Produk_model');
+        $produk = $produkModel->getProdukById($id);
+
+        if (!$produk) {
+            $_SESSION['flash'] = ['type' => 'error', 'message' => 'Produk tidak ditemukan.'];
+            header('Location: ' . BASEURL . '/Produk');
+            exit;
+        }
+
+        $produkModel->hapusProduk($id);
+        $_SESSION['flash'] = ['type' => 'success', 'message' => 'Produk <strong>' . htmlspecialchars($produk['product_name']) . '</strong> berhasil dihapus.'];
+        header('Location: ' . BASEURL . '/Produk');
+        exit;
+    }
 }

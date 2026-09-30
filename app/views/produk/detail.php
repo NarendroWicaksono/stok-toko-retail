@@ -56,5 +56,14 @@
             </div>
             <p style="font-size: 13px; color: #555555; margin-top: 8px;">Ketik angka stok terbaru di atas, lalu klik <strong>Simpan Stok</strong>.</p>
         </form>
+
+        <!-- Aksi Edit & Hapus -->
+        <div style="display:flex; gap:10px; margin-top:20px; padding-top:16px; border-top:2px solid #eee;">
+            <a href="<?= BASEURL; ?>/Produk/edit/<?= $p['id']; ?>" class="btn btn-edit">Edit Produk</a>
+            <form method="POST" action="<?= BASEURL; ?>/Produk/hapus/<?= $p['id']; ?>" onsubmit="return confirm('Yakin ingin menghapus produk ini? Tindakan ini tidak dapat dibatalkan.');">
+                <button type="submit" class="btn btn-hapus">Hapus Produk</button>
+            </form>
+        </div>
     </div>
 </div>
+

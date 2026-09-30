@@ -85,6 +85,8 @@
             <ul class="nav-menu">
                 <li><a href="<?= BASEURL; ?>" class="nav-link">Dashboard</a></li>
                 <li><a href="<?= BASEURL; ?>/Produk" class="nav-link">Produk</a></li>
+                <li><a href="<?= BASEURL; ?>/Kategori" class="nav-link">Kategori</a></li>
+                <li><a href="<?= BASEURL; ?>/Supplier" class="nav-link">Supplier</a></li>
                 <li><a href="<?= BASEURL; ?>/Produk/stokRendah" class="nav-link nav-alert">Stok Rendah</a></li>
             </ul>
         </div>

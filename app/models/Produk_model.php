@@ -132,4 +132,41 @@ class Produk_model {
         $result = $this->db->single();
         return $result['total'];
     }
+
+    public function tambahProduk($data) {
+        $this->db->query("INSERT INTO {$this->table} (product_id, product_name, category, sub_category, harga, stok, stok_minimum, kategori_id, supplier_id) VALUES (:product_id, :product_name, :category, :sub_category, :harga, :stok, :stok_minimum, :kategori_id, :supplier_id)");
+        $this->db->bind(':product_id', $data['product_id']);
+        $this->db->bind(':product_name', $data['product_name']);
+        $this->db->bind(':category', $data['category']);
+        $this->db->bind(':sub_category', $data['sub_category']);
+        $this->db->bind(':harga', $data['harga']);
+        $this->db->bind(':stok', $data['stok']);
+        $this->db->bind(':stok_minimum', $data['stok_minimum']);
+        $this->db->bind(':kategori_id', $data['kategori_id']);
+        $this->db->bind(':supplier_id', $data['supplier_id']);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function updateProduk($data) {
+        $this->db->query("UPDATE {$this->table} SET product_name = :product_name, category = :category, sub_category = :sub_category, harga = :harga, stok_minimum = :stok_minimum, kategori_id = :kategori_id, supplier_id = :supplier_id WHERE id = :id");
+        $this->db->bind(':product_name', $data['product_name']);
+        $this->db->bind(':category', $data['category']);
+        $this->db->bind(':sub_category', $data['sub_category']);
+        $this->db->bind(':harga', $data['harga']);
+        $this->db->bind(':stok_minimum', $data['stok_minimum']);
+        $this->db->bind(':kategori_id', $data['kategori_id']);
+        $this->db->bind(':supplier_id', $data['supplier_id']);
+        $this->db->bind(':id', $data['id']);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
+
+    public function hapusProduk($id) {
+        $this->db->query("DELETE FROM {$this->table} WHERE id = :id");
+        $this->db->bind(':id', $id);
+        $this->db->execute();
+        return $this->db->rowCount();
+    }
 }
+

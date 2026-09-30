@@ -10,6 +10,10 @@
         <span class="card-label">Total Kategori</span>
         <span class="card-value"><?= number_format($data['total_kategori'], 0, ',', '.'); ?></span>
     </div>
+    <div class="card card-stat">
+        <span class="card-label">Total Supplier</span>
+        <span class="card-value"><?= number_format($data['total_supplier'], 0, ',', '.'); ?></span>
+    </div>
     <div class="card card-stat card-warning">
         <span class="card-label">Perlu Restok (Stok Rendah)</span>
         <span class="card-value"><?= number_format($data['total_stok_rendah'], 0, ',', '.'); ?></span>

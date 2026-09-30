@@ -15,7 +15,10 @@
                value="<?= htmlspecialchars($data['current_search'] ?? ''); ?>">
         <button type="submit" class="btn">Cari</button>
     </form>
-    <span class="toolbar-info"><?= number_format($data['total'], 0, ',', '.'); ?> produk ditemukan</span>
+    <div style="display:flex; gap:10px; align-items:center; flex-wrap:wrap;">
+        <span class="toolbar-info"><?= number_format($data['total'], 0, ',', '.'); ?> produk ditemukan</span>
+        <a href="<?= BASEURL; ?>/Produk/tambah" class="btn btn-tambah">+ Tambah Produk</a>
+    </div>
 </div>
 
 <!-- Tabel Produk -->
